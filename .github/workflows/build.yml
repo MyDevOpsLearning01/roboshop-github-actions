@@ -5,26 +5,33 @@ on:
         required: true
         type: string
 jobs:
-  java:
-    runs-on: self-hosted
-    if: inputs.app_type == 'java'
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: echo Hello, world!
+    dummy:
+      runs-on: self-hosted
+      steps:
+        - name: Call
+          run: echo
+    java:
+      runs-on: self-hosted
+      if: inputs.app_type == 'java'
+      steps:
+        - uses: actions/checkout@v4
+        - name: Maven Package
+          run: |
+            mvn package
 
-  nodejs:
-    runs-on: self-hosted
-    if: inputs.app_type == 'nodejs'
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-  python:
-    runs-on: self-hosted
-    if: inputs.app_type == 'python'
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: echo Hello, world!
+## Python and Nodejs does not have anything to do at build phase
+#  nodejs:
+#    runs-on: self-hosted
+#    if: inputs.app_type == 'nodejs'
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: Run a one-line script
+#        run: echo Hello, world!
+#
+#  python:
+#    runs-on: self-hosted
+#    if: inputs.app_type == 'python'
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: Run a one-line script
+#        run: echo Hello, world!
