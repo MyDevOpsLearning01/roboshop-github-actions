@@ -4,6 +4,9 @@ on:
       app_type:
         required: true
         type: string
+      app_name:
+        required: true
+        type: string
 jobs:
   docker-build-push:
       runs-on: self-hosted
@@ -16,7 +19,9 @@ jobs:
             fi
         - name: Docker Build
           run: |
-            docker build .
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 804756348441.dkr.ecr.us-east-1.amazonaws.com
+            docker build -t 804756348441.dkr.ecr.us-east-1.amazonaws.com/${{inputs.app_name}}:${GITHUB_SHA} .
+            docker push 804756348441.dkr.ecr.us-east-1.amazonaws.com/${{inputs.app_name}}:${GITHUB_SHA}
 
 ## Python and Nodejs does not have anything to do at build phase
 #  nodejs:
@@ -35,9 +40,7 @@ jobs:
 #      - name: Run a one-line script
 #        run: echo Hello, world!
 
-#      app_name:
-#        required: true
-#        type: string
+
 #  if [ "${{inputs.app_type}}" == "nodejs" ]; then
 #            npm install
 #            fi
