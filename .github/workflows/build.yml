@@ -23,7 +23,7 @@ jobs:
 #            fi
         - name: Docker Build
           run: |
-            sudo docker build .
+            docker build .
 
 ## Python and Nodejs does not have anything to do at build phase
 #  nodejs:
