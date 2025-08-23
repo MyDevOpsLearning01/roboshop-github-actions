@@ -21,13 +21,11 @@ jobs:
       app_name: ${{ inputs.app_name }}
 
   dev-deploy:
-    runs-on: self-hosted
+    uses: MyDevOpsLearning01/roboshop-github-actions/.github/workflows/deploy.yml@main
     needs: build
-    environment: dev
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: echo Hello, world!
+    with:
+      app_name: ${{ inputs.app_name }}
+      app_env: dev
 
   qa-deploy:
     runs-on: self-hosted
